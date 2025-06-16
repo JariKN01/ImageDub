@@ -36,8 +36,8 @@ def index():
     if request.method == 'POST':
         files = request.files.getlist('images')
         count = request.form.get('count', type=int)
-        if not files or count not in (1, 2, 4):
-            flash('Selecteer één of meerdere afbeeldingen en kies 1, 2 of 4.')
+        if not files or count not in (1, 2, 4, 6):
+            flash('Selecteer één of meerdere afbeeldingen en kies 1, 2, 4 of 6.')
             return redirect(request.url)
 
         zip_buf = io.BytesIO()
@@ -46,7 +46,7 @@ def index():
                 base, _ = os.path.splitext(file.filename)
                 img = Image.open(file.stream)
                 w, h = img.size
-                layouts = {1: (1, 1), 2: (2, 1), 4: (2, 2)}
+                layouts = {1: (1, 1), 2: (2, 1), 4: (2, 2), 6: (3, 2)}
                 cols, rows = layouts[count]
                 canvas = Image.new('RGBA', (w * cols, h * rows), (255, 255, 255, 0))
                 for i in range(count):
@@ -56,7 +56,7 @@ def index():
                 img_buf = io.BytesIO()
                 canvas.save(img_buf, format='PNG')
                 img_buf.seek(0)
-                zipf.writestr(f"{base}_{count}.png", img_buf.read())
+                zipf.writestr(f"{base}.png", img_buf.read())
 
         zip_buf.seek(0)
         return send_file(
