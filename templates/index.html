@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image Duplicator</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Duplicator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>Image Duplicator</h1>
+<div class="container">
+    <h1>Warentuin</h1>
+    <h2>Afbeeldingen dupliceren</h2>
     {% with msgs = get_flashed_messages() %}
-      {% if msgs %}
-        <ul class="flash">
-          {% for m in msgs %}<li>{{ m }}</li>{% endfor %}
-        </ul>
-      {% endif %}
+        {% if msgs %}
+            <ul class="flash">
+                {% for m in msgs %}
+                    <li>{{ m }}</li>{% endfor %}
+            </ul>
+        {% endif %}
     {% endwith %}
     <form method="post" enctype="multipart/form-data">
-      <label>Afbeeldingen uploaden (meerdere mogelijk):</label>
-      <input type="file" name="images" accept="image/*" multiple required>
-      <label>Aantal (1, 2 of 4):</label>
-      <select name="count">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="4">4</option>
-      </select>
-      <button type="submit">Dupliceren</button>
+        <input type="file" name="images" accept="image/*" multiple required>
+        <label class="afbeelding_label">(meerdere mogelijk)</label>
+        <label class="count">Aantal keer dupliceren:</label>
+        <select name="count">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+        </select>
+        <button type="submit">Dupliceren</button>
     </form>
-  </div>
+</div>
 </body>
 </html>
