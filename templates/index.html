@@ -17,13 +17,13 @@
       {% endif %}
     {% endwith %}
     <form method="post" enctype="multipart/form-data">
-      <label>Afbeelding uploaden:</label>
-      <input type="file" name="image" accept="image/*" required>
+      <label>Afbeeldingen uploaden (meerdere mogelijk):</label>
+      <input type="file" name="images" accept="image/*" multiple required>
       <label>Aantal (1, 2 of 4):</label>
       <select name="count">
-        <option>1</option>
-        <option>2</option>
-        <option>4</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="4">4</option>
       </select>
       <button type="submit">Dupliceren</button>
     </form>
