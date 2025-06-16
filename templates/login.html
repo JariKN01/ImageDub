@@ -3,21 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <h2>Voer toegangscode in</h2>
-    <form method="post">
-        <input type="password" name="code" required>
-        <button type="submit">Inloggen</button>
-    </form>
-    {% with msgs = get_flashed_messages() %}
-      {% if msgs %}
-        <ul>
-          {% for m in msgs %}
-            <li>{{ m }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+<button id="theme-toggle"
+        class="absolute top-5 left-5 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-1 rounded">
+    <i id="icon-sun" class="fa-regular fa-sun h-10 w-10" style="display:none"></i>
+    <i id="icon-moon" class="fa-solid fa-moon h-10 w-10" style="display:none"></i>
+</button>
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-3 py-4 mx-auto md:h-screen lg:py-0">
+        <h1 class="mb-4 p-6 space-y-2 md:space-y-3 sm:p-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            Image <span
+                class="underline underline-offset-3 decoration-8 decoration-green-400 dark:decoration-green-600">duplicator</span>
+{#                <span class="bg-green-100 text-green-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-200 dark:text-green-800 ms-2">Warentuin</span>#}
+        </h1>
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Login
+                </h1>
+                <form class="space-y-4 md:space-y-6" method="post">
+                    <div>
+                        <label for="email"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Code</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                               type="password" name="code" required>
+                    </div>
+                    <button type="submit"
+                            class="w-full text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        Sign in
+                    </button>
+                </form>
+                {% with msgs = get_flashed_messages() %}
+                    {% if msgs %}
+                        <ul>
+                            {% for m in msgs %}
+                                <li>{{ m }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    tailwind.config = {
+        darkMode: 'class'
+    }
+
+    document.getElementById('theme-toggle').onclick = function () {
+        document.documentElement.classList.toggle('dark');
+    }
+</script>
+<script>
+    function updateThemeIcon() {
+        const isDark = document.documentElement.classList.contains('dark');
+        document.getElementById('icon-sun').style.display = isDark ? 'inline' : 'none';
+        document.getElementById('icon-moon').style.display = isDark ? 'none' : 'inline';
+    }
+
+    document.getElementById('theme-toggle').onclick = function () {
+        document.documentElement.classList.toggle('dark');
+        updateThemeIcon();
+    };
+
+    updateThemeIcon();
+</script>
 </body>
 </html>
