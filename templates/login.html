@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Voer toegangscode in</h2>
+    <form method="post">
+        <input type="password" name="code" required>
+        <button type="submit">Inloggen</button>
+    </form>
+    {% with msgs = get_flashed_messages() %}
+      {% if msgs %}
+        <ul>
+          {% for m in msgs %}
+            <li>{{ m }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
