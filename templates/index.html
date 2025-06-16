@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Duplicator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Image Duplicator</h1>
+    {% with msgs = get_flashed_messages() %}
+      {% if msgs %}
+        <ul class="flash">
+          {% for m in msgs %}<li>{{ m }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post" enctype="multipart/form-data">
+      <label>Afbeelding uploaden:</label>
+      <input type="file" name="image" accept="image/*" required>
+      <label>Aantal (1, 2 of 4):</label>
+      <select name="count">
+        <option>1</option>
+        <option>2</option>
+        <option>4</option>
+      </select>
+      <button type="submit">Dupliceren</button>
+    </form>
+  </div>
+</body>
+</html>
