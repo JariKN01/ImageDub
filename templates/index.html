@@ -22,12 +22,13 @@
         <form method="post" enctype="multipart/form-data" class="space-y-5">
             <div>
                 <label class="block text-gray-600 font-medium mb-1" for="images">Afbeeldingen uploaden</label>
-                <input class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-400" type="file" id="images" name="images" accept="image/*" multiple required>
+                <input class="w-full text-slate-500 font-medium text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded" type="file" id="images" name="images" accept="image/*" multiple required>
                 <span class="text-xs text-gray-400">(meerdere mogelijk)</span>
             </div>
             <div>
                 <label class="block text-gray-600 font-medium mb-1" for="count">Aantal keer dupliceren</label>
-                <select class="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400" id="count" name="count">
+                <select class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
+                        id="count" name="count">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="4">4</option>
