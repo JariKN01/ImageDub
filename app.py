@@ -35,24 +35,29 @@ def login():
 def index():
     if request.method == 'POST':
         files = request.files.getlist('images')
-        count = request.form.get('count', type=int)
-        if not files or count not in (1, 2, 4, 6):
-            flash('Selecteer één of meerdere afbeeldingen en kies 1, 2, 4 of 6.')
+        cols = request.form.get('cols', type=int)
+        rows = request.form.get('rows', type=int)
+
+        # Validatie
+        if not files or not cols or not rows:
+            flash('Selecteer afbeeldingen en kies aantal kolommen en rijen.')
             return redirect(request.url)
 
+        count = cols * rows
         zip_buf = io.BytesIO()
         with zipfile.ZipFile(zip_buf, 'w') as zipf:
             for file in files:
                 base, _ = os.path.splitext(file.filename)
                 img = Image.open(file.stream)
                 w, h = img.size
-                layouts = {1: (1, 1), 2: (2, 1), 4: (2, 2), 6: (3, 2)}
-                cols, rows = layouts[count]
+
+                # Nieuwe canvasgrootte
                 canvas = Image.new('RGBA', (w * cols, h * rows), (255, 255, 255, 0))
                 for i in range(count):
                     x = (i % cols) * w
                     y = (i // cols) * h
                     canvas.paste(img, (x, y))
+
                 img_buf = io.BytesIO()
                 canvas.save(img_buf, format='PNG')
                 img_buf.seek(0)
