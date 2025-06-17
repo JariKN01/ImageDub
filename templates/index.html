@@ -7,22 +7,32 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
+<body class="relative">
 <button id="theme-toggle"
         class="absolute top-5 left-5 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-1 rounded">
     <i id="icon-sun" class="fa-regular fa-sun h-6 w-6" style="display:none"></i>
     <i id="icon-moon" class="fa-solid fa-moon h-6 w-6" style="display:none"></i>
 </button>
 
-<section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+<form action="{{ url_for('logout') }}" method="post"
+      class="fixed top-5 right-5 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-2 rounded z-50">
+  <button type="submit">
+    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+  </button>
+</form>
+
+<section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col items-center justify-center space-y-6">
+  <h1 class="text-6xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white">
+            Waren<span
+                class="underline underline-offset-3 decoration-8 decoration-green-400 dark:decoration-green-600">tuin</span>
+
+{#                <span class="bg-green-100 text-green-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-200 dark:text-green-800 ms-2">Warentuin</span>#}
+        </h1>
     <div class="w-full bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 max-w-md p-6 space-y-6">
         <div class="text-center">
-            <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">
-                Warentuin
+            <h1 class="text-2xl font-extrabold text-gray-700 dark:text-white">
+                Afbeelding dupliceren
             </h1>
-            <p class="mt-1 text-xl text-gray-600 dark:text-gray-300">
-                Afbeeldingen dupliceren
-            </p>
         </div>
 
         {% with msgs = get_flashed_messages() %}
@@ -93,26 +103,37 @@
 </section>
 
 <script>
-    // Tailwind dark-mode config
-    tailwind.config = {darkMode: 'class'};
+  // Tailwind dark-mode config
+  tailwind.config = { darkMode: 'class' };
 
-    const themeToggle = document.getElementById('theme-toggle');
-    const iconSun = document.getElementById('icon-sun');
-    const iconMoon = document.getElementById('icon-moon');
+  // 1. Lees opgeslagen voorkeur
+  const savedTheme = localStorage.getItem('theme');
+  // 2. Bepaal of systeem-voorkeur geldt (fallback)
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    function updateThemeIcon() {
-        const isDark = document.documentElement.classList.contains('dark');
-        iconSun.style.display = isDark ? 'inline' : 'none';
-        iconMoon.style.display = isDark ? 'none' : 'inline';
-    }
+  if (savedTheme === 'dark' || (savedTheme === null && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
 
-    themeToggle.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        updateThemeIcon();
-    });
+  // Icon-update functie
+  const iconSun = document.getElementById('icon-sun');
+  const iconMoon = document.getElementById('icon-moon');
+  function updateThemeIcon() {
+    const isDark = document.documentElement.classList.contains('dark');
+    iconSun.style.display = isDark ? 'inline' : 'none';
+    iconMoon.style.display = isDark ? 'none' : 'inline';
+  }
 
-    // Init icon on load
-    updateThemeIcon();
+  // 3. Init icon én listener
+  updateThemeIcon();
+  document.getElementById('theme-toggle')
+          .addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            updateThemeIcon();
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          });
 </script>
 </body>
 </html>

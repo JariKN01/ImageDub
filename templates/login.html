@@ -17,7 +17,7 @@
         <h1 class="mb-4 p-6 space-y-2 md:space-y-3 sm:p-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Image <span
                 class="underline underline-offset-3 decoration-8 decoration-green-400 dark:decoration-green-600">duplicator</span>
-{#                <span class="bg-green-100 text-green-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-200 dark:text-green-800 ms-2">Warentuin</span>#}
+            {#                <span class="bg-green-100 text-green-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-200 dark:text-green-800 ms-2">Warentuin</span>#}
         </h1>
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -38,9 +38,11 @@
                 </form>
                 {% with msgs = get_flashed_messages() %}
                     {% if msgs %}
-                        <ul>
+                        <ul class="space-y-2 text-black dark:text-white">
                             {% for m in msgs %}
-                                <li>{{ m }}</li>
+                                <li>
+                                    {{ m }}
+                                </li>
                             {% endfor %}
                         </ul>
                     {% endif %}
@@ -50,27 +52,38 @@
     </div>
 </section>
 <script>
-    tailwind.config = {
-        darkMode: 'class'
+    // Tailwind dark-mode config
+    tailwind.config = {darkMode: 'class'};
+
+    // 1. Lees opgeslagen voorkeur
+    const savedTheme = localStorage.getItem('theme');
+    // 2. Bepaal of systeem-voorkeur geldt (fallback)
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (savedTheme === null && prefersDark)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
     }
 
-    document.getElementById('theme-toggle').onclick = function () {
-        document.documentElement.classList.toggle('dark');
-    }
-</script>
-<script>
+    // Icon-update functie
+    const iconSun = document.getElementById('icon-sun');
+    const iconMoon = document.getElementById('icon-moon');
+
     function updateThemeIcon() {
         const isDark = document.documentElement.classList.contains('dark');
-        document.getElementById('icon-sun').style.display = isDark ? 'inline' : 'none';
-        document.getElementById('icon-moon').style.display = isDark ? 'none' : 'inline';
+        iconSun.style.display = isDark ? 'inline' : 'none';
+        iconMoon.style.display = isDark ? 'none' : 'inline';
     }
 
-    document.getElementById('theme-toggle').onclick = function () {
-        document.documentElement.classList.toggle('dark');
-        updateThemeIcon();
-    };
-
+    // 3. Init icon én listener
     updateThemeIcon();
+    document.getElementById('theme-toggle')
+        .addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            updateThemeIcon();
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
 </script>
 </body>
 </html>

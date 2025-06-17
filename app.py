@@ -11,13 +11,16 @@ TOEGANGSCODE = 'wt18'  # Pas deze code aan
 tmp_dir = 'tmp'
 os.makedirs(tmp_dir, exist_ok=True)
 
+
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not session.get('ingelogd'):
             return redirect(url_for('login'))
         return f(*args, **kwargs)
+
     return decorated_function
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -29,6 +32,15 @@ def login():
         else:
             flash('Foute code!')
     return render_template('login.html')
+
+
+@app.route('/logout', methods=['POST'])
+@login_required
+def logout():
+    session.pop('ingelogd', None)
+    flash('Je bent uitgelogd.')
+    return redirect(url_for('login'))
+
 
 @app.route('/', methods=['GET', 'POST'])
 @login_required
@@ -73,5 +85,6 @@ def index():
 
     return render_template('index.html')
 
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
