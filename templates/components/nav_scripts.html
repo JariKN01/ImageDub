@@ -1,0 +1,82 @@
+<script>
+    // Tailwind dark-mode config
+    tailwind.config = {darkMode: 'class'};
+
+    // 1. Lees opgeslagen voorkeur
+    const savedTheme = localStorage.getItem('theme');
+    // 2. Bepaal of systeem-voorkeur geldt (fallback)
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (savedTheme === null && prefersDark)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+
+    // Icon-update functie
+    const iconSun = document.getElementById('icon-sun');
+    const iconMoon = document.getElementById('icon-moon');
+
+    function updateThemeIcon() {
+        const isDark = document.documentElement.classList.contains('dark');
+        iconSun.style.display = isDark ? 'inline' : 'none';
+        iconMoon.style.display = isDark ? 'none' : 'inline';
+    }
+
+    // 3. Init icon én listener
+    updateThemeIcon();
+    document.getElementById('theme-toggle')
+        .addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            updateThemeIcon();
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+</script>
+<script>
+    // Menu toggle functionality
+    function setupMenuToggle() {
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const menuDropdown = document.getElementById('menu-dropdown');
+
+        // Toggle hamburger menu open/closed
+        hamburgerButton.addEventListener('click', function() {
+            if (menuDropdown.classList.contains('hidden')) {
+                // Open menu with animation
+                menuDropdown.classList.remove('hidden');
+                // Trick to force a reflow so transition works properly
+                void menuDropdown.offsetWidth;
+                menuDropdown.classList.remove('opacity-0', 'scale-95');
+                menuDropdown.classList.add('opacity-100', 'scale-100');
+            } else {
+                // Close menu with animation
+                menuDropdown.classList.add('opacity-0', 'scale-95');
+                menuDropdown.classList.remove('opacity-100', 'scale-100');
+
+                // Wait for animation to complete before hiding
+                setTimeout(() => {
+                    menuDropdown.classList.add('hidden');
+                }, 200); // Match your transition duration
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!hamburgerButton.contains(event.target) && !menuDropdown.contains(event.target) &&
+                !menuDropdown.classList.contains('hidden')) {
+                // Close menu with animation
+                menuDropdown.classList.add('opacity-0', 'scale-95');
+                menuDropdown.classList.remove('opacity-100', 'scale-100');
+
+                setTimeout(() => {
+                    menuDropdown.classList.add('hidden');
+                }, 300);
+            }
+        });
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        setupMenuToggle();
+        // Any other initialization functions
+    });
+</script>

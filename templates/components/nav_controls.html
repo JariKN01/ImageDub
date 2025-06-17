@@ -1,0 +1,74 @@
+{# templates/components/nav_controls.html #}
+<button id="theme-toggle"
+        class="absolute top-5 left-5 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-1 rounded">
+    <i id="icon-sun" class="fa-regular fa-sun h-6 w-6" style="display:none"></i>
+    <i id="icon-moon" class="fa-solid fa-moon h-6 w-6" style="display:none"></i>
+</button>
+
+<div class="fixed top-5 right-16 z-50">
+    <div id="hamburger-button"
+         class="flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-3 rounded cursor-pointer">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div id="menu-dropdown"
+         class="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl hidden overflow-hidden border border-gray-100 dark:border-gray-700
+     transform translate-x-4 opacity-0 transition-all duration-200 ease-out">
+        <ul class="text-gray-800 dark:text-gray-200 divide-y divide-gray-100 dark:divide-gray-700">
+            {% if request.path != '/' %}
+                <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div class="w-6 text-center">
+                        <i class="fa-regular fa-copy text-green-500 dark:text-green-400"></i>
+                    </div>
+                    <span class="ml-3">
+            <a href="/">
+                WT18 Dupliceren
+            </a>
+        </span>
+                </li>
+            {% endif %}
+
+            {% if request.path != '/wt17' %}
+                <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div class="w-6 text-center">
+                        <i class="fa-regular fa-comments text-green-500 dark:text-green-400"></i>
+                    </div>
+                    <span class="ml-3">
+            <a href="/wt17">
+                WT17 Beschrijvingen
+            </a>
+        </span>
+                </li>
+            {% endif %}
+
+            {% if request.path != '/wt16' %}
+                <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div class="w-6 text-center">
+                        <i class="fa-regular fa-hourglass-half text-green-500 dark:text-green-400"></i>
+                    </div>
+                    <span class="ml-3">
+            <a href="/wt16">Wt16 Scraper</a>
+        </span>
+                </li>
+            {% endif %}
+
+            {% if request.path != '/wt15' %}
+                <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div class="w-6 text-center">
+                        <i class="fa-regular fa-clone text-green-500 dark:text-green-400"></i>
+                    </div>
+                    <span class="ml-3">
+            <a href="/wt15">WT15 Foto voorgrond</a>
+        </span>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+<form action="{{ url_for('logout') }}" method="post"
+      class="fixed top-5 right-5 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-2 rounded z-50">
+    <button type="submit">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    </button>
+</form>

@@ -9,49 +9,7 @@
 </head>
 <body class="relative">
 
-<button id="theme-toggle"
-        class="absolute top-5 left-5 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-1 rounded">
-    <i id="icon-sun" class="fa-regular fa-sun h-6 w-6" style="display:none"></i>
-    <i id="icon-moon" class="fa-solid fa-moon h-6 w-6" style="display:none"></i>
-</button>
-
-<div class="fixed top-5 right-16 z-50">
-    <div id="hamburger-button"
-         class="flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-3 rounded cursor-pointer">
-        <i class="fa-solid fa-bars"></i>
-    </div>
-
-    <div id="menu-dropdown"
-         class="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl hidden overflow-hidden border border-gray-100 dark:border-gray-700">
-        <ul class="text-gray-800 dark:text-gray-200 divide-y divide-gray-100 dark:divide-gray-700">
-            <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
-                <div class="w-6 text-center">
-                    <i class="fa-regular fa-comments text-green-500 dark:text-green-400"></i>
-                </div>
-                <span class="ml-3">WT17 Beschrijvingen</span>
-            </li>
-            <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
-                <div class="w-6 text-center">
-                    <i class="fa-regular fa-hourglass-half text-green-500 dark:text-green-400"></i>
-                </div>
-                <span class="ml-3">Wt16 Scraper</span>
-            </li>
-            <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
-                <div class="w-6 text-center">
-                    <i class="fa-regular fa-clone text-green-500 dark:text-green-400"></i>
-                </div>
-                <span class="ml-3">WT15 Foto voorgrond</span>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<form action="{{ url_for('logout') }}" method="post"
-      class="fixed top-5 right-5 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-2 rounded z-50">
-    <button type="submit">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-    </button>
-</form>
+{% include 'components/nav_controls.html' %}
 
 <section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col items-center justify-center space-y-6">
     <h1 class="text-6xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white">
@@ -133,56 +91,7 @@
     </div>
 </section>
 
-<script>
-    // Tailwind dark-mode config
-    tailwind.config = {darkMode: 'class'};
+{% include 'components/nav_scripts.html' %}
 
-    // 1. Lees opgeslagen voorkeur
-    const savedTheme = localStorage.getItem('theme');
-    // 2. Bepaal of systeem-voorkeur geldt (fallback)
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme === 'dark' || (savedTheme === null && prefersDark)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
-
-    // Icon-update functie
-    const iconSun = document.getElementById('icon-sun');
-    const iconMoon = document.getElementById('icon-moon');
-
-    function updateThemeIcon() {
-        const isDark = document.documentElement.classList.contains('dark');
-        iconSun.style.display = isDark ? 'inline' : 'none';
-        iconMoon.style.display = isDark ? 'none' : 'inline';
-    }
-
-    // 3. Init icon én listener
-    updateThemeIcon();
-    document.getElementById('theme-toggle')
-        .addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            updateThemeIcon();
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-</script>
-<script>
-    // Toggle hamburger menu open/closed
-    document.getElementById('hamburger-button').addEventListener('click', function () {
-        const dropdown = document.getElementById('menu-dropdown');
-        dropdown.classList.toggle('hidden');
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function (event) {
-        const hamburgerButton = document.getElementById('hamburger-button');
-        const menuDropdown = document.getElementById('menu-dropdown');
-
-        if (!hamburgerButton.contains(event.target) && !menuDropdown.contains(event.target)) {
-            menuDropdown.classList.add('hidden');
-        }
-    });
-</script>
 </body>
 </html>

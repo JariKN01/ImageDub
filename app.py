@@ -85,6 +85,10 @@ def index():
 
     return render_template('index.html')
 
+@app.route('/wt17')
+@login_required
+def wt17():
+    return render_template('wt17.html')
 
 if __name__ == '__main__':
     app.run()
