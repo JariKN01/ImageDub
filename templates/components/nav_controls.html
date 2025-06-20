@@ -18,10 +18,36 @@
             {% if request.path != '/' %}
                 <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
                     <div class="w-6 text-center">
-                        <i class="fa-regular fa-copy text-green-500 dark:text-green-400"></i>
+                        <i class="fa-solid fa-seedling text-green-500 dark:text-green-400"></i>
                     </div>
                     <span class="ml-3">
             <a href="/">
+                Home
+            </a>
+        </span>
+                </li>
+            {% endif %}
+
+            {% if request.path != 'wt19/' %}
+                <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div class="w-6 text-center">
+                        <i class="fa-regular fa-square-check text-green-500 dark:text-green-400"></i>
+                    </div>
+                    <span class="ml-3">
+            <a href="/wt19">
+                WT19 Logo op afbeelding
+            </a>
+        </span>
+                </li>
+            {% endif %}
+
+            {% if request.path != '/wt18' %}
+                <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div class="w-6 text-center">
+                        <i class="fa-regular fa-copy text-green-500 dark:text-green-400"></i>
+                    </div>
+                    <span class="ml-3">
+            <a href="/wt18">
                 WT18 Dupliceren
             </a>
         </span>

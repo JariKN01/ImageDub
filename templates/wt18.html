@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Duplicator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="relative">
+
+{% include 'components/nav_controls.html' %}
+
+<section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col items-center justify-center space-y-6">
+    <h1 class="text-6xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white">
+        Afbeelding <span
+            class="underline underline-offset-3 decoration-8 decoration-green-400 dark:decoration-green-600">Dupliceren</span>
+
+        {#                <span class="bg-green-100 text-green-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-200 dark:text-green-800 ms-2">Warentuin</span>#}
+    </h1>
+    <div class="w-full bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 max-w-md p-6 space-y-6">
+        <div class="text-center">
+            <h1 class="text-2xl font-extrabold text-gray-600 dark:text-white">
+                Warentuin™
+            </h1>
+        </div>
+
+        {% with msgs = get_flashed_messages() %}
+            {% if msgs %}
+                <ul class="space-y-2">
+                    {% for m in msgs %}
+                        <li class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded text-sm">{{ m }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" enctype="multipart/form-data" class="space-y-5">
+            <div>
+                <label for="images" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                    Afbeeldingen uploaden
+                </label>
+                <input type="file" id="images" name="images" accept="image/*" multiple required
+                       class="block w-full text-sm text-gray-500
+                            bg-gray-100 dark:bg-gray-700 dark:text-gray-200
+                            file:mr-4 file:py-2 file:px-4
+                            file:border-0 file:rounded
+                            file:bg-green-600 file:text-white
+                            dark:file:bg-green-600
+                            file:hover:bg-green-500
+                            dark:file:hover:bg-green-500
+                            file:cursor-pointer
+                            "/>
+                <p class="mt-1 text-xs text-gray-400">(meerdere mogelijk)</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="cols" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                        Aantal Breedtes
+                    </label>
+                    <select id="cols" name="cols"
+                            class="block w-full p-2.5 border border-gray-300 rounded-lg
+                                   text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                   focus:ring-green-500 focus:border-green-500">
+                        {% for c in range(1,6) %}
+                            <option value="{{ c }}">{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="rows" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                        Aantal Hoogte
+                    </label>
+                    <select id="rows" name="rows"
+                            class="block w-full p-2.5 border border-gray-300 rounded-lg
+                                   text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                   focus:ring-green-500 focus:border-green-500">
+                        {% for r in range(1,6) %}
+                            <option value="{{ r }}">{{ r }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-green-600 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
+                Dupliceren
+            </button>
+        </form>
+    </div>
+</section>
+
+{% include 'components/nav_scripts.html' %}
+
+</body>
+</html>

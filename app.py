@@ -42,9 +42,9 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/wt18', methods=['GET', 'POST'])
 @login_required
-def index():
+def wt18():
     if request.method == 'POST':
         files = request.files.getlist('images')
         cols = request.form.get('cols', type=int)
@@ -83,12 +83,22 @@ def index():
             download_name='duplicated_images.zip'
         )
 
-    return render_template('index.html')
+    return render_template('wt18.html')
 
 @app.route('/wt17')
 @login_required
 def wt17():
     return render_template('wt17.html')
+
+@app.route('/wt19')
+@login_required
+def wt19():
+    return render_template('wt19.html')
+
+@app.route('/')
+@login_required
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run()
