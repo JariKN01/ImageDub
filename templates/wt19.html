@@ -5,6 +5,24 @@
     <title>WT19</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .accordion-item:not(.active) .accordion-item-active\:hidden {
+            display: block;
+        }
+
+        .accordion-item:not(.active) .accordion-item-active\:block {
+            display: none;
+        }
+
+        /* EXPANDED: hide plus, show minus */
+        .accordion-item.active .accordion-item-active\:hidden {
+            display: none;
+        }
+
+        .accordion-item.active .accordion-item-active\:block {
+            display: block;
+        }
+    </style>
 </head>
 <body class="relative">
 
@@ -13,24 +31,98 @@
 <section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col items-center justify-center space-y-6">
 
     <h1 class="text-6xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white">
-        WT<span
-            class="underline underline-offset-3 decoration-8 decoration-green-400 dark:decoration-green-600">19</span>
+        <span class="underline underline-offset-3 decoration-8 decoration-green-400 dark:decoration-green-600">WT</span>19
     </h1>
-    <div class="text-center">
-    <div role="status">
-        <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-        </svg>
-        <span class="sr-only">Loading...</span>
+    <div class="download-section flex flex-col items-center justify-center w-full bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 max-w-md p-6 space-y-6">
+        <h2 class="w-full text-2xl text-center font-bold text-gray-900 dark:text-white mb-2">Button op afbeelding</h2>
+
+        <!-- New Accordion Implementation -->
+        <div class="accordion w-full">
+            <div class="accordion-item active accordion-item-active:border accordion-item-active:rounded-box accordion-item-active:border-base-content/25"
+                 id="payment-border-active">
+                <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full p-3 font-medium text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                        aria-controls="payment-border-active-collapse" aria-expanded="true"
+                        aria-labelledby="payment-border-active-heading">
+                    <span class="accordion-item-active:hidden text-base-content size-4.5 block shrink-0">
+                        <i class="fa-solid fa-plus"></i>
+                    </span>
+                    <span class="accordion-item-active:block text-base-content size-4.5 hidden shrink-0">
+                        <i class="fa-solid fa-minus"></i>
+                    </span>
+                    <span id="payment-border-active-heading">Wat doet het programma?</span>
+                </button>
+                <div id="payment-border-active-collapse" class="accordion-content w-full overflow-hidden"
+                     aria-labelledby="payment-border-active-heading" role="region">
+                    <p class="p-2 text-gray-700 dark:text-gray-300">
+                        Dit programma maakt het mogelijk om een logo of button op een bestaande foto te plaatsen. Je kunt de positie van de button kiezen (linksboven, rechtsboven, linksonder, rechtsonder of midden).
+                    </p>
+                </div>
+            </div>
+            <div class="accordion-item accordion-item-active:border accordion-item-active:rounded-box accordion-item-active:border-base-content/25"
+                 id="new-item">
+                <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full p-3 font-medium text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                        aria-controls="new-item-collapse" aria-expanded="false"
+                        aria-labelledby="new-item-heading">
+                    <span class="accordion-item-active:hidden text-base-content size-4.5 block shrink-0">
+                        <i class="fa-solid fa-plus"></i>
+                    </span>
+                    <span class="accordion-item-active:block text-base-content size-4.5 hidden shrink-0">
+                        <i class="fa-solid fa-minus"></i>
+                    </span>
+                    <span id="new-item-heading">Hoe gebruik je het?</span>
+                </button>
+                <div id="new-item-collapse" class="accordion-content w-full overflow-hidden hidden"
+                     aria-labelledby="new-item-heading" role="region">
+                    <p class="p-2 text-gray-700 dark:text-gray-300">
+                        Zet in een Excel-bestand per regel de (deel van de) bestandsnaam van je hoofd-afbeelding in kolom A, de gewenste overlay-positie (linksboven, rechtsboven, linksonder, rechtsonder of midden) in kolom B en de (deel van de) bestandsnaam van je button-afbeelding in kolom C. Plaats al je hoofd-afbeeldingen in de map afbeeldingen en je button-afbeeldingen in de map button. Open het exe WT_19_button_rechtsboven_op_foto.py bestand en laat het runnen. Het script leest je instructies, zoekt de juiste bestanden, schaalt de button indien nodig en plakt hem op de opgegeven positie. Na afloop vind je de bewerkte foto’s in een nieuw aangemaakte map resultaat_versie.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% if file_exists %}
+            <a href="{{ url_for('download_file', filename=specific_download) }}"
+               class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition whitespace-nowrap">
+                <i class="fa-solid fa-download"></i>
+                <span class="ml-2">Download {{ specific_download }}</span>
+            </a>
+        {% else %}
+            <p class="text-red-500">This download is currently unavailable.</p>
+        {% endif %}
     </div>
-</div>
-
-
 
 </section>
 
 {% include 'components/nav_scripts.html' %}
+
+<!-- Script for accordion functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all accordion toggle buttons
+        const accordionToggles = document.querySelectorAll('.accordion-toggle');
+
+        accordionToggles.forEach(toggle => {
+            toggle.addEventListener('click', function () {
+                const accordionItem = this.closest('.accordion-item');
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                const contentId = this.getAttribute('aria-controls');
+                const content = document.getElementById(contentId);
+
+                // Toggle aria-expanded attribute
+                this.setAttribute('aria-expanded', !isExpanded);
+
+                if (isExpanded) {
+                    // Collapse
+                    accordionItem.classList.remove('active');
+                    content.classList.add('hidden');
+                } else {
+                    // Expand
+                    accordionItem.classList.add('active');
+                    content.classList.remove('hidden');
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

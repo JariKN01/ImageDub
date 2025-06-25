@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Downloads</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="relative">
+
+{% include 'components/nav_controls.html' %}
+
+<section class="bg-gray-50 dark:bg-gray-900 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-white">Beschikbare Downloads</h1>
+
+        <div class="grid gap-4">
+            {% for file in files %}
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow flex items-center justify-between">
+                <div>
+                    <i class="fa-solid fa-file-zipper text-green-500 mr-3"></i>
+                    <span class="text-gray-900 dark:text-white">{{ file }}</span>
+                </div>
+                <a href="{{ url_for('download_file', filename=file) }}"
+                   class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
+                    <i class="fa-solid fa-download mr-2"></i>Download
+                </a>
+            </div>
+            {% endfor %}
+
+            {% if not files %}
+            <div class="text-center p-8 text-gray-500 dark:text-gray-400">
+                No downloads available at this time.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% include 'components/nav_scripts.html' %}
+
+</body>
+</html>

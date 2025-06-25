@@ -89,6 +89,20 @@
             </button>
         </form>
     </div>
+    <div class="download-section flex flex-col items-center justify-center w-full bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 max-w-md p-6 space-y-6">
+    <h1 class="text-2xl font-extrabold text-gray-600 dark:text-white">
+                Download
+    </h1>
+    {% if file_exists %}
+        <a href="{{ url_for('download_file', filename=specific_download) }}"
+           class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-400 text-white font-bold border-b-4 border-green-700 hover:border-green-500 rounded transition whitespace-nowrap">
+            <i class="fa-solid fa-download"></i>
+            <span class="ml-2">{{ specific_download }}</span>
+        </a>
+    {% else %}
+        <p class="text-red-500">This download is currently unavailable.</p>
+    {% endif %}
+</div>
 </section>
 
 {% include 'components/nav_scripts.html' %}

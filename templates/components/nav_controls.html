@@ -28,7 +28,20 @@
                 </li>
             {% endif %}
 
-            {% if request.path != 'wt19/' %}
+            {% if request.path != '/downloads' %}
+                <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div class="w-6 text-center">
+                        <i class="fa-solid fa-folder-open text-green-500 dark:text-green-400"></i>
+                    </div>
+                    <span class="ml-3">
+            <a href="/downloads">
+                Downloads overzicht
+            </a>
+        </span>
+                </li>
+            {% endif %}
+
+            {% if request.path != '/wt19' %}
                 <li class="flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
                     <div class="w-6 text-center">
                         <i class="fa-regular fa-square-check text-green-500 dark:text-green-400"></i>

@@ -1,7 +1,10 @@
-from flask import Flask, request, render_template, send_file, redirect, flash, session, url_for
+from flask import Flask, request, render_template, send_file, redirect, flash, session, url_for, send_from_directory, abort
 from PIL import Image
 import os, io, zipfile
 from functools import wraps
+
+# Define the absolute path to your downloads folder
+DOWNLOADS_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'downloads')
 
 app = Flask(__name__)
 app.secret_key = 'verander-dit-naar-een-geheim-sleutel'
@@ -83,22 +86,90 @@ def wt18():
             download_name='duplicated_images.zip'
         )
 
-    return render_template('wt18.html')
+    download_filename = 'WT_19_button_rechtsboven_op_foto.zip'
+    file_path = os.path.join(DOWNLOADS_FOLDER, download_filename)
+
+    # Check if the file exists
+    file_exists = os.path.isfile(file_path)
+
+    return render_template('wt18.html',
+                           specific_download=download_filename,
+                           file_exists=file_exists)
+
 
 @app.route('/wt17')
 @login_required
 def wt17():
-    return render_template('wt17.html')
+    # Specify the filename for this specific page
+    download_filename = 'WT_19_button_rechtsboven_op_foto.zip'
+    file_path = os.path.join(DOWNLOADS_FOLDER, download_filename)
+
+    # Check if the file exists
+    file_exists = os.path.isfile(file_path)
+
+    return render_template('wt17.html',
+                           specific_download=download_filename,
+                           file_exists=file_exists)
 
 @app.route('/wt19')
 @login_required
 def wt19():
-    return render_template('wt19.html')
+    # Specify the filename for this specific page
+    download_filename = 'WT_19_button_rechtsboven_op_foto.zip'
+    file_path = os.path.join(DOWNLOADS_FOLDER, download_filename)
+
+    # Check if the file exists
+    file_exists = os.path.isfile(file_path)
+
+    return render_template('wt19.html',
+                           specific_download=download_filename,
+                           file_exists=file_exists)
+
+@app.route('/wt16')
+@login_required
+def wt16():
+    # Specify the filename for this specific page
+    download_filename = 'WT_19_button_rechtsboven_op_foto.zip'
+    file_path = os.path.join(DOWNLOADS_FOLDER, download_filename)
+
+    # Check if the file exists
+    file_exists = os.path.isfile(file_path)
+
+    return render_template('wt16.html',
+                           specific_download=download_filename,
+                           file_exists=file_exists)
 
 @app.route('/')
 @login_required
 def index():
     return render_template('index.html')
 
+
+@app.route('/downloads/<filename>')
+def download_file(filename):
+    """Handle file downloads from the downloads folder"""
+    file_path = os.path.join(DOWNLOADS_FOLDER, filename)
+
+    # Check if file exists
+    if not os.path.isfile(file_path):
+        abort(404)
+
+    return send_file(file_path, as_attachment=True)
+
+
+@app.route('/downloads')
+def downloads_page():
+    """Display available downloads"""
+    try:
+        files = os.listdir(DOWNLOADS_FOLDER)
+        # Filter only zip files
+        zip_files = [f for f in files if f.endswith('.zip')]
+        return render_template('downloads.html', files=zip_files)
+    except FileNotFoundError:
+        # Create downloads folder if it doesn't exist
+        os.makedirs(DOWNLOADS_FOLDER, exist_ok=True)
+        return render_template('downloads.html', files=[])
+
 if __name__ == '__main__':
     app.run()
+
